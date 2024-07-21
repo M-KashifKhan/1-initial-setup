@@ -3,7 +3,7 @@ import { serve } from "https://deno.land/std@0.207.0/http/server.ts";
 
 const flags = parse(Deno.args, {
   string: ["port"],
-  default: { port: 80 },
+  default: { port: 8080 },
 });
 
 console.log(`File server running on http://localhost:${flags.port}/`);

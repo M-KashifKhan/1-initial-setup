@@ -1,16 +1,35 @@
-function loadHTML(url, elementId) {
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById(elementId).innerHTML = data;
-        })
-        .catch(error => {
-            console.error('Error loading HTML:', error);
-        });
+function loadHTML() {
+    const headerPlaceholder = document.getElementById('header-placeholder');
+    const footerPlaceholder = document.getElementById('footer-placeholder');
+
+    if (headerPlaceholder) {
+        fetch('header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                headerPlaceholder.innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    }
+
+    if (footerPlaceholder) {
+        fetch('footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                footerPlaceholder.innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    }
 }
 
-// Load header and footer
-document.addEventListener('DOMContentLoaded', () => {
-    loadHTML('header.html', 'header-placeholder');
-    loadHTML('footer.html', 'footer-placeholder');
-});
+// Ensure the function runs after the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', loadHTML);
